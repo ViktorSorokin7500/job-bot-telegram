@@ -1,12 +1,15 @@
 {
-  "name": "task_bot",
+  "name": "job-bot-telegram",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/bot.js"
+  },
+  "engines": {
+    "node": "22.x"
   },
   "keywords": [],
-  "author": "",
+  "author": "Viktor Sorokin",
   "license": "ISC",
   "type": "commonjs",
   "description": "",
