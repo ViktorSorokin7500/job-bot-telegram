@@ -10,6 +10,10 @@ const mainMenu = require("./keyboards/mainMenu");
 const createAdWizard = require("./scenes/createAdScene");
 const createEditAdWizard = require("./scenes/editAdScene");
 const { UKRAINE_OBLASTS } = require("./utils/constants");
+const { deactivateExpiredAds } = require("./utils/cleanup");
+
+let lastCleanupTime = 0;
+const CLEANUP_INTERVAL = 6 * 60 * 60 * 1000;
 
 // --- Ініціалізація ---
 console.log("Starting bot...");
@@ -225,6 +229,13 @@ bot.use(stage.middleware());
 
 // --- Обробники команд ---
 bot.start(async (ctx) => {
+  const now = Date.now();
+  console.log("lastCleanupTime =>", lastCleanupTime);
+  if (now - lastCleanupTime > CLEANUP_INTERVAL) {
+    deactivateExpiredAds(supabase); // Викликаємо функцію
+    lastCleanupTime = now; // Оновлюємо час останнього запуску
+  }
+
   const telegramId = ctx.from.id;
   console.log(`User with Telegram ID ${telegramId} started the bot.`);
 
