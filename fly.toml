@@ -1,0 +1,10 @@
+# fly.toml
+app = 'job-bot-telegram'
+primary_region = 'fra'
+
+[build]
+  builder = 'paketobuildpacks/builder:base'
+
+# ДОДАЙТЕ ЦЮ СЕКЦІЮ
+[processes]
+  app = 'node src/bot.js'
